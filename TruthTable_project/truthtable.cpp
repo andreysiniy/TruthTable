@@ -35,19 +35,30 @@ QList<QMap<QString, bool>> TruthTable::generateCombinations(QStringList variable
     return combinations;
 }
 
-void TruthTable::generateTruthTable(Node *root, QStringList variables, int nodesAmount)
+QList<QMap<QString, bool>> TruthTable::generateTruthTable()
 {
-    QList<QMap<QString, bool>> combinations = generateCombinations(variables);
+    // Генерируем комбинации значений переменных
+    QList<QMap<QString, bool>> combinations = generateCombinations(this->variables);
 
-    for (int i = 0; i < nodesAmount - variables.length(); i++)
+    // Проходимся по узлам дерева операций
+    for (int i = 0; i < this->nodesAmount - this->variables.length(); i++)
     {
-        Node *currentOperation = root->lowestOperationType();
+        // Находим узел с самой низкоуровневой операцией
+        Node *currentOperation = this->root->lowestOperationType();
+
+        // Проходимся по всем комбинациям значений переменных
         for (int k = 0; k < combinations.length(); k++)
         {
+            // Вычисляем значение текущей операции для данной комбинации переменных
             combinations[k][currentOperation->name] = currentOperation->evaluate(currentOperation, combinations[k]);
         }
+
+        // После вычисления значения, узел операции становится переменной
         currentOperation->type = VAR;
         currentOperation->left = nullptr;
         currentOperation->right = nullptr;
     }
+
+    // Возвращаем полученные комбинации значений
+    return combinations;
 }

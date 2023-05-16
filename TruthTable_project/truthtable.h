@@ -9,11 +9,11 @@ class TruthTable
 public:
     Node *root;
     QStringList variables;
-
+    int nodesAmount;
 
 
     QList<QMap<QString, bool>> generateCombinations(QStringList variables);
-    void generateTruthTable(Node *root, QStringList variables, int nodesAmount);
+    QList<QMap<QString, bool>> generateTruthTable();
 
     TruthTable();
 };
