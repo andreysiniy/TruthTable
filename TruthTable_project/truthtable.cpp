@@ -62,3 +62,58 @@ QList<QMap<QString, bool>> TruthTable::generateTruthTable()
     // Возвращаем полученные комбинации значений
     return combinations;
 }
+
+void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTable, const QStringList& variableNames, const QString& fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        // Обработка ошибки открытия файла
+        return;
+    }
+
+    QTextStream stream(&file);
+
+    // Запись заголовков переменных и операций
+    // Инициализация список заголовков переменных
+    QStringList headers = variableNames;
+    for (const auto& combination : truthTable)
+    {
+        // Обход каждой комбинации значений
+        for (auto it = combination.constBegin(); it != combination.constEnd(); ++it)
+        {
+            // Проверяем, если заголовок переменной уже присутствует в списке заголовков
+            if (!headers.contains(it.key()))
+            {
+                // Добавление нового заголовка
+                headers.append(it.key());
+            }
+        }
+    }
+    // Запись заголовков в поток
+    stream << headers.join(",") << "\n";
+
+    // Запись значений в таблицу
+    for (const auto& combination : truthTable)
+    {
+        QStringList row; // Инициализация строки для текущей комбинации значений
+        for (const auto& variable : variableNames)
+        {
+            // Добавляем значения переменных в текущую строку
+            row << QString::number(combination.value(variable));
+        }
+        for (const auto& header : headers)
+        {
+            // Проверяем, если текущий заголовок не является переменной
+            if (!variableNames.contains(header))
+            {
+                // Добавление значений операций в текущую строку
+                row << QString::number(combination.value(header));
+            }
+        }
+        // Запись строку в поток
+        stream << row.join(",") << "\n";
+    }
+    // Завершение работы с файлом
+    file.close();
+}

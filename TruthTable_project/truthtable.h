@@ -3,6 +3,8 @@
 #include "node.h"
 #include <QString>
 #include <QStringList>
+#include <QTextStream>
+#include <QFile>
 
 class TruthTable
 {
@@ -14,6 +16,7 @@ public:
 
     QList<QMap<QString, bool>> generateCombinations(QStringList variables);
     QList<QMap<QString, bool>> generateTruthTable();
+    void writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTable, const QStringList& variableNames, const QString& fileName);
 
     TruthTable();
 };
