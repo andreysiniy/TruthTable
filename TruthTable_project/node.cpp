@@ -25,7 +25,7 @@ bool Node::evaluate(Node *node, const QMap<QString, bool> &variables)
         case VAR:
             return variablesCopy[node->name];
         case NOT:
-            return !evaluate(node->left, variablesCopy);
+            return !evaluate(node->right, variablesCopy);
         case AND:
             return evaluate(node->left, variablesCopy) && evaluate(node->right, variablesCopy);
         case OR:
@@ -57,3 +57,7 @@ Node *Node::lowestOperationType()
     }
     return result;
 }
+
+// TODO: создать объекты узлов из записи в ОПЗ
+
+
