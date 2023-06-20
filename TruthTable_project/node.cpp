@@ -47,6 +47,7 @@ bool Node::evaluate(const Node *node, const QMap<QString, bool> &variables)
     }
 }
 
+// Нахождение самой низкоуровневой операции
 Node *Node::lowestOperationType()
 {
     Node *result = this;

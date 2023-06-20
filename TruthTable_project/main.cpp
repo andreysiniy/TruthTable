@@ -29,11 +29,14 @@ app.exe C:\\Documents\input.txt .\out.csv.
 int main(int argc, char *argv[])
 {
     QCoreApplication aa(argc, argv);
+    // Русская локализация в консоли
     setlocale(LC_ALL, "Russian");
+    // Проверка количества аргументов в консоли, выдать исключение, если аргументов больше 2
     if (argc > 3){
         exceptionHandler(QList<error>() << error(TO_MANY_ARGUMENTS, 0, ""));
         return 0;
     }
+    // Получить строку с файла и проверить на исключения
     QString input;
     try
     {
@@ -44,10 +47,12 @@ int main(int argc, char *argv[])
         exceptionHandler(exeptions);
         return 0;
     }
+    // Инициализация пустых переменных для работы программы
     QStringList _variables;
     int _nodesAmount;
 
     Node* _root;
+    // Распаковка строки на объекты узлов дерева, проверка правильности строки
     try {
     _root = unpackString(input, _variables, _nodesAmount);
     }
@@ -56,11 +61,13 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    // Инициализация параметров для генерации таблицы истинности
     TruthTable outputTable;
     outputTable.nodesAmount = _nodesAmount;
     outputTable.root = _root;
     outputTable.variables = _variables;
 
+    // Инициализация списка ошибок для проверки выходного файла
     QList<error> errorList;
     QString fileName = argv[2];
     try {
@@ -71,7 +78,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-
+    // Генерация и запись таблицы истинности в .csv файл с проверкой на исключения
     try {
     outputTable.writeTruthTableToCSV(outputTable.generateTruthTable(), fileName);
     }

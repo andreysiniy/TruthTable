@@ -89,6 +89,7 @@ QList<error> variableValidation(QString token)
     QList<error> errorList;
     if (token == "")
     {
+        // Пустой токен
         error emptyTokenError = {EMPTY_TOKEN, 0, ""};
         errorList.append(emptyTokenError);
         return errorList;
@@ -96,12 +97,14 @@ QList<error> variableValidation(QString token)
 
     if (token[0].isDigit())
     {
+        // Переменная начинается с цифры
         error digitError = {VARIABLE_STARTS_WITH_DIGIT, 0, token[0]};
         errorList.append(digitError);
     }
 
     for (int i = 0; i < token.length(); i++)
     {
+        // Символ, не соответствующий правилам языка C
         if (!token[i].isDigit() && !token[i].isLetter() && token[i] != '_')
         {
             error incorrectSymbolError = {UNKNOWN_SYMBOL, i, token[i]};
