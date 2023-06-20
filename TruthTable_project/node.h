@@ -2,6 +2,7 @@
 #define NODE_H
 #include <QString.h>
 
+
 enum NodeType
 {
     VAR,

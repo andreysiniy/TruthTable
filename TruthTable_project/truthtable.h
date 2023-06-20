@@ -1,6 +1,7 @@
 #ifndef TRUTHTABLE_H
 #define TRUTHTABLE_H
 #include "node.h"
+#include "errorhandler.h"
 #include <QString>
 #include <QStringList>
 #include <QTextStream>

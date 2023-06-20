@@ -65,11 +65,16 @@ QList<QMap<QString, bool>> TruthTable::generateTruthTable()
 
 void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTable, const QStringList& variableNames, const QString& fileName)
 {
+    QList<error> errorList;
+
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        // Обработка ошибки открытия файла
-        return;
+        // Нет доступа к файлу
+        error noAccessToFileError;
+        noAccessToFileError.type = NO_ACCESS_TO_FILE;
+        errorList.append(noAccessToFileError);
+        throw errorList;
     }
 
     QTextStream stream(&file);
@@ -111,7 +116,7 @@ void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTab
                 row << QString::number(combination.value(header));
             }
         }
-        // Запись строку в поток
+        // Запись строки в поток
         stream << row.join(",") << "\n";
     }
     // Завершение работы с файлом
