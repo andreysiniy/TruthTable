@@ -29,10 +29,21 @@ app.exe C:\\Documents\input.txt .\out.csv.
 int main(int argc, char *argv[])
 {
     QCoreApplication aa(argc, argv);
-
-
-
-    QString input = getStringFromFile("input\\truth_table.txt");
+    setlocale(LC_ALL, "Russian");
+    if (argc > 3){
+        exceptionHandler(QList<error>() << error(TO_MANY_ARGUMENTS, 0, ""));
+        return 0;
+    }
+    QString input;
+    try
+    {
+        input = getStringFromFile(argv[1]);
+    }
+    catch (QList<error> exeptions)
+    {
+        exceptionHandler(exeptions);
+        return 0;
+    }
     QStringList _variables;
     int _nodesAmount;
 
@@ -50,7 +61,7 @@ int main(int argc, char *argv[])
     outputTable.root = _root;
     outputTable.variables = _variables;
 
-    QString fileName = "truth_table.csv";
+    QString fileName = argv[2];
     try {
     outputTable.writeTruthTableToCSV(outputTable.generateTruthTable(), fileName);
     }
