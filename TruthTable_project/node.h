@@ -5,7 +5,7 @@
 
 #ifndef NODE_H
 #define NODE_H
-#include <QString.h>
+#include <QString>
 
 /*!
 * \brief Перечисление логических операторов
