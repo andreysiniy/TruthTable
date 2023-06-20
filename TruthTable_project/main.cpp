@@ -1,12 +1,53 @@
+/*!
+*\file
+*\brief Данный файл содержит главную управляющую функцию программы
+*\mainpage Документация для программы "TruthTable"
+Программа предназначена для создания таблицы истинности логического выражения
+Для функционирования программы необходима операционная система Windows 10 или выше.
+Программа разработана на языке С++ с использованием библиотеки QT в IDE QT creator.
+Стандарт языка ISO C++17 (/std:c++17).
+Консольная программа должна получать два параметра командной строки: имя входного файла с данными о дереве разбора логического выражения,
+имя файла для записи результирующей таблицы истинности.
+
+Пример команды запуска программы:
+*\code
+app.exe C:\\Documents\input.txt .\out.csv.
+*\endcode
+
+*\author Устимов Данила
+*\date Июнь 2023
+*\version 1.0
+*/
+
 #include <QCoreApplication>
 #include "node.h"
 #include "truthtable.h"
 
 // Функция unpackString распаковывает выражение, представленное в обратной польской записи, возвращает указатель на корень выражения и список переменных
+
+/*!
+* \brief Преобразует строку, записанную в ОПЗ в разобранное дерево выражения
+* \param[in] input - путь чтения входного файла
+* \param[in,out] variables - пустой список переменных, который будет наполнен по ходу распаковки строки
+* \param[in,out] nodesAmount - пустой счетчик узлов в дереве
+* \return Указатель на корень разобранного дерева выражения
+* \throw - QList<error> - Выбрасывает список исключений в случае ошибок обработки файла
+*/
 Node* unpackString(QString input, QStringList &variables, int &nodesAmount);
 
+/*!
+* \brief Преобразует заранее правильный токен в тип операции
+* \param[in] input - Строка с выделенным токеном
+* \return Тип операции
+*/
 NodeType stringToNodeType(QString input);
 
+/*!
+* \brief Получает строку по пути файла
+* \param[in] fileName - путь чтения входного файла
+* \return Строка, прочитанная из файла
+* \throw - QList<error> - Выбрасывает список исключений в случае ошибок обработки файла
+*/
 QString getStringFromFile(QString path);
 
 int main(int argc, char *argv[])
@@ -15,7 +56,7 @@ int main(int argc, char *argv[])
 
 
 
-    QString input = "A B XOR C OR D E AND OR";
+    QString input = getStringFromFile("input\\truth_table.txt");
     QStringList _variables;
     int _nodesAmount;
 

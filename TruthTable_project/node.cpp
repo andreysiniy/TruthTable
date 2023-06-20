@@ -15,7 +15,7 @@ Node::Node(NodeType type, QString name, Node *left, Node *right)
 либо логический оператор (NOT, AND, OR, XOR, NAND, NOR, EQU). Функция принимает указатель на корень дерева и QMap,
 содержащий значения переменных, используемых в выражении.
 */
-bool Node::evaluate(Node *node, const QMap<QString, bool> &variables)
+bool Node::evaluate(const Node *node, const QMap<QString, bool> &variables)
 {
     // Создание локальной копии QMap, которая копирует значения из QMap, переданного в качестве аргумента функции.
     QMap<QString, bool> variablesCopy = variables;

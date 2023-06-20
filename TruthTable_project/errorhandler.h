@@ -1,3 +1,8 @@
+/*!
+*\file
+*\brief В данном файле находятся заголовки функций и структуры данных, которые используются для проверки исключений.
+*/
+
 #ifndef ERRORHANDLER_H
 #define ERRORHANDLER_H
 
@@ -108,8 +113,8 @@ QList<error> variableValidation(QString token);
 /*!
 * \brief Классифицирует токен
 * \param[in] token - токен
-* \return тип лексемы из перечисления tokenType
+* \return тип токена из перечисления tokenType
 */
 tokenType tokenClassification(QString token);
 
-void checkString(QString string);
+
