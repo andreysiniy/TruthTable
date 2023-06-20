@@ -5,6 +5,8 @@
 // Функция unpackString распаковывает выражение, представленное в обратной польской записи, возвращает указатель на корень выражения и список переменных
 Node* unpackString(QString input, QStringList &variables);
 
+NodeType stringToNodeType(QString input);
+
 int main(int argc, char *argv[])
 {
     QCoreApplication aa(argc, argv);
@@ -95,4 +97,23 @@ Node* unpackString(QString input, QStringList &variables)
     }
     // Вернуть единственный оставшийся узел в списке, являющимся корнем
     return nodeList.last();
+}
+
+NodeType stringToNodeType(QString input)
+{
+    if (input == "NOT")
+        return NodeType::NOT;
+    else if (input == "AND")
+        return NodeType::AND;
+    else if (input == "OR")
+        return NodeType::OR;
+    else if (input == "XOR")
+        return NodeType::XOR;
+    else if (input == "NAND")
+        return NodeType::NAND;
+    else if (input == "NOR")
+        return NodeType::NOR;
+    else if (input == "EQU")
+        return NodeType::EQU;
+    else return NodeType::VAR;
 }

@@ -58,23 +58,6 @@ Node *Node::lowestOperationType()
     return result;
 }
 
-NodeType stringToNodeType(QString input)
-{
-    if (input == "NOT")
-        return NodeType::NOT;
-    else if (input == "AND")
-        return NodeType::AND;
-    else if (input == "OR")
-        return NodeType::OR;
-    else if (input == "XOR")
-        return NodeType::XOR;
-    else if (input == "NAND")
-        return NodeType::NAND;
-    else if (input == "NOR")
-        return NodeType::NOR;
-    else if (input == "EQU")
-        return NodeType::EQU;
-    else return NodeType::VAR;
-}
+
 
 

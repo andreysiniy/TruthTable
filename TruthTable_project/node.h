@@ -25,7 +25,7 @@ public:
 
     Node(NodeType type, QString name, Node *left = nullptr, Node *right = nullptr);
 
-    NodeType stringToNodeType(QString input);
+
     bool evaluate(Node *node, const QMap<QString, bool> &variables);
     Node *lowestOperationType();
 
