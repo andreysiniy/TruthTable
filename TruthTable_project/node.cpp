@@ -1,3 +1,7 @@
+/*!
+*\file
+*\brief Данный  файл содержит в себе реализацию функций для для работы с узлами деревьев
+*/
 #include "node.h"
 #include <QMap>
 #include <QString>

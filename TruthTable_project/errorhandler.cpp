@@ -1,3 +1,7 @@
+/*!
+*\file
+*\brief Данный  файл содержит в себе реализацию функций обработки ошибок
+*/
 #include "errorhandler.h"
 
 void exceptionHandler(QList<error> errors)

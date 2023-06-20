@@ -1,3 +1,7 @@
+/*!
+*\file
+*\brief Данный  файл содержит в себе реализацию функций для работы со строкой
+*/
 #include "stringoperations.h"
 
 Node* unpackString(QString input, QStringList &variables, int &nodesAmount)
