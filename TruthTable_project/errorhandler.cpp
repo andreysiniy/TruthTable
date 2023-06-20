@@ -49,6 +49,15 @@ void exceptionHandler(QList<error> errors)
         case TO_MANY_ARGUMENTS:
             qDebug() << "Передано слишком много аргументов";
             break;
+        case CONSOLE_ARGS_EXCEPTION:
+            qDebug() << "Недостаточно аргументов в консоли";
+            break;
+        case INPUT_FILE_EXTENSION_EXCEPTION:
+            qDebug() << "Неверное расширение входного файла, ожидался .txt файл на входе";
+            break;
+        case OUTPUT_FILE_EXTENSION_EXCEPTION:
+            qDebug() << "Неверное расширение выходного файла, ожидался .csv файл на выходе";
+            break;
         default:
             break;
         }
@@ -103,4 +112,15 @@ QList<error> variableValidation(QString token)
     return errorList;
 }
 
-
+void checkOutputPathString(QString path)
+{
+    QList<error> errorList;
+    if (!path.endsWith(".csv"))
+    {
+        // Неверное расширение выходного файла
+        error outputFileExtensionError;
+        outputFileExtensionError.type = OUTPUT_FILE_EXTENSION_EXCEPTION;
+        errorList.append(outputFileExtensionError);
+        throw errorList;
+    }
+}

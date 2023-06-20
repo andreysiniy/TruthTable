@@ -61,12 +61,23 @@ int main(int argc, char *argv[])
     outputTable.root = _root;
     outputTable.variables = _variables;
 
+    QList<error> errorList;
     QString fileName = argv[2];
+    try {
+        checkOutputPathString(fileName);
+    }
+    catch (QList<error> exceptions) {
+        exceptionHandler(exceptions);
+        return 0;
+    }
+
+
     try {
     outputTable.writeTruthTableToCSV(outputTable.generateTruthTable(), fileName);
     }
     catch (QList<error> exceptions) {
         exceptionHandler(exceptions);
+        return 0;
     }
 
     return 0;

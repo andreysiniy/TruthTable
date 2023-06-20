@@ -156,7 +156,9 @@ NodeType stringToNodeType(QString input)
 QString getStringFromFile(QString path)
 
 {
+
     QList<error> errorList;
+
 
     if (path.isEmpty())
     {
@@ -166,6 +168,16 @@ QString getStringFromFile(QString path)
         errorList.append(pathError);
         throw errorList;
     }
+
+    if (!path.endsWith(".txt"))
+    {
+        // Неверное расширение файла
+        error fileExtensionError;
+        fileExtensionError.type = INPUT_FILE_EXTENSION_EXCEPTION;
+        errorList.append(fileExtensionError);
+        throw errorList;
+    }
+
 
     QFile file(path);
     if (!file.exists())

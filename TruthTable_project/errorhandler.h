@@ -30,7 +30,10 @@ enum exeption {
     NO_ACCESS_TO_FILE, ///< нет доступа к файлу
     VARIABLE_STARTS_WITH_DIGIT, ///< переменная начинается с цифры
     EMPTY_TOKEN, ///< пустой токен
-    TO_MANY_ARGUMENTS ///< передано слишком много аргументов
+    TO_MANY_ARGUMENTS, ///< передано слишком много аргументов
+    CONSOLE_ARGS_EXCEPTION, ///< недостаточно аргументов в консоли
+    INPUT_FILE_EXTENSION_EXCEPTION, ///< неверное расширение входного файла
+    OUTPUT_FILE_EXTENSION_EXCEPTION ///< неферное расширение выходного файла
 };
 
 /*!
@@ -117,4 +120,8 @@ QList<error> variableValidation(QString token);
 */
 tokenType tokenClassification(QString token);
 
-
+/*!
+* \brief Проверяет расширение выходного файла на соответствие .csv формату
+* \param[in] path - путь к выходному файлу
+*/
+void checkOutputPathString(QString path);
