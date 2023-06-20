@@ -3,7 +3,7 @@
 #include "truthtable.h"
 
 // Функция unpackString распаковывает выражение, представленное в обратной польской записи, возвращает указатель на корень выражения и список переменных
-Node* unpackString(QString input, QStringList &variables);
+Node* unpackString(QString input, QStringList &variables, int &nodesAmount);
 
 NodeType stringToNodeType(QString input);
 
@@ -12,32 +12,24 @@ int main(int argc, char *argv[])
     QCoreApplication aa(argc, argv);
 
     QString input = "A NOT B AND C OR";
-    QStringList variablesN;
-    Node* root = unpackString(input, variablesN);
+    QStringList _variables;
+    int _nodesAmount;
+    Node* _root = unpackString(input, _variables, _nodesAmount);
 
-   /* Node *a = new Node(VAR, "a");
-    Node *notA = new Node(NOT, "NOT a", a);
-    Node *b = new Node(VAR, "b");
-    Node *andBnotA = new Node(AND, "NOT a AND b", notA, b);
-    Node *c = new Node(VAR, "c");
-    Node *andBnotAorC = new Node(OR, "(NOT a AND b) OR c", andBnotA, c);
-
-
-    QStringList variables = {"a", "b"};
-    TruthTable cool;
-    cool.root = andBnotA;
-    cool.variables = variables;
-    cool.nodesAmount = 4;
-
-
+    TruthTable outputTable;
+    outputTable.nodesAmount = _nodesAmount;
+    outputTable.root = _root;
+    outputTable.variables = _variables;
 
     QString fileName = "truth_table.csv";
-    cool.writeTruthTableToCSV(cool.generateTruthTable(), variables, fileName); */
-    return aa.exec();
+    outputTable.writeTruthTableToCSV(outputTable.generateTruthTable(), _variables, fileName);
+
+    return 0;
 }
 
-Node* unpackString(QString input, QStringList &variables)
+Node* unpackString(QString input, QStringList &variables, int &nodesAmount)
 {
+    nodesAmount = 0; // Счетчик кол-ва узлов
     // Инициализация пустого списка узлов
     QList<Node*> nodeList;
     // Разбиваем строку на токены
@@ -46,6 +38,7 @@ Node* unpackString(QString input, QStringList &variables)
     foreach (QString token, tokens) {
         // Создаем пустой узел
         Node* newNode = new Node(VAR, token, NULL, NULL);
+        nodesAmount++;
 
         // Если токен не является операцией
         if (token != "NOT" && token != "AND" && token != "OR" && token != "XOR" &&
@@ -71,7 +64,7 @@ Node* unpackString(QString input, QStringList &variables)
                 newNode->name = token + " (" + newNode->right->name + ")";
         } else { // Если токен - другой тип операции
             // Присвоить тип операции текущего узла по токену
-            newNode->type = static_cast<NodeType>(tokens.indexOf(token) - 1); // Должно было делать чото умнное, но чото не делает
+            newNode->type = stringToNodeType(token);
             // Извлечь из списка "правого" потомка - последний записанный в список узел
             newNode->right = nodeList.takeLast();
             // Извлечь из списка "левого" потомка - следующий в списке узел
