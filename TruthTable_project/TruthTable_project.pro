@@ -11,6 +11,7 @@ SOURCES += \
         errorhandler.cpp \
         main.cpp \
         node.cpp \
+        stringoperations.cpp \
         truthtable.cpp
 
 # Default rules for deployment.
@@ -21,4 +22,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     errorhandler.h \
     node.h \
+    stringoperations.h \
     truthtable.h
