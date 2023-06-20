@@ -6,7 +6,7 @@ TruthTable::TruthTable()
 
 }
 
-QList<QMap<QString, bool>> TruthTable::generateCombinations(QStringList variables)
+QList<QMap<QString, bool>> TruthTable::generateCombinations()
 {
     // Инициализируем пустой список combinations, в который будут добавляться сгенерированные комбинации.
     QList<QMap<QString, bool>> combinations;
@@ -38,7 +38,7 @@ QList<QMap<QString, bool>> TruthTable::generateCombinations(QStringList variable
 QList<QMap<QString, bool>> TruthTable::generateTruthTable()
 {
     // Генерируем комбинации значений переменных
-    QList<QMap<QString, bool>> combinations = generateCombinations(this->variables);
+    QList<QMap<QString, bool>> combinations = generateCombinations();
 
     // Проходимся по узлам дерева операций
     for (int i = 0; i < this->nodesAmount - this->variables.length(); i++)
@@ -63,7 +63,7 @@ QList<QMap<QString, bool>> TruthTable::generateTruthTable()
     return combinations;
 }
 
-void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTable, const QStringList& variableNames, const QString& fileName)
+void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTable, const QString& fileName)
 {
     QList<error> errorList;
 
@@ -81,7 +81,7 @@ void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTab
 
     // Запись заголовков переменных и операций
     // Инициализация список заголовков переменных
-    QStringList headers = variableNames;
+    QStringList headers = variables;
     for (const auto& combination : truthTable)
     {
         // Обход каждой комбинации значений
@@ -102,7 +102,7 @@ void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTab
     for (const auto& combination : truthTable)
     {
         QStringList row; // Инициализация строки для текущей комбинации значений
-        for (const auto& variable : variableNames)
+        for (const auto& variable : variables)
         {
             // Добавляем значения переменных в текущую строку
             row << QString::number(combination.value(variable));
@@ -110,7 +110,7 @@ void TruthTable::writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTab
         for (const auto& header : headers)
         {
             // Проверяем, если текущий заголовок не является переменной
-            if (!variableNames.contains(header))
+            if (!variables.contains(header))
             {
                 // Добавление значений операций в текущую строку
                 row << QString::number(combination.value(header));

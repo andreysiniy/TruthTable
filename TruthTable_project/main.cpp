@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 
 
-    QString input = "A,B XOR";
+    QString input = "A B XOR C OR D E AND OR";
     QStringList _variables;
     int _nodesAmount;
 
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
     QString fileName = "truth_table.csv";
     try {
-    outputTable.writeTruthTableToCSV(outputTable.generateTruthTable(), _variables, fileName);
+    outputTable.writeTruthTableToCSV(outputTable.generateTruthTable(), fileName);
     }
     catch (QList<error> exceptions) {
         exceptionHandler(exceptions);

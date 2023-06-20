@@ -15,9 +15,9 @@ public:
     int nodesAmount;
 
 
-    QList<QMap<QString, bool>> generateCombinations(QStringList variables);
+    QList<QMap<QString, bool>> generateCombinations();
     QList<QMap<QString, bool>> generateTruthTable();
-    void writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTable, const QStringList& variableNames, const QString& fileName);
+    void writeTruthTableToCSV(const QList<QMap<QString, bool>>& truthTable, const QString& fileName);
 
     TruthTable();
 };
