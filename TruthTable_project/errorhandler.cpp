@@ -89,7 +89,7 @@ QList<error> variableValidation(QString token)
 
     for (int i = 0; i < token.length(); i++)
     {
-        if (!token[i].isDigit() && !token[i].isLetter())
+        if (!token[i].isDigit() && !token[i].isLetter() && token[i] != '_')
         {
             error incorrectSymbolError = {UNKNOWN_SYMBOL, i, token[i]};
             errorList.append(incorrectSymbolError);
