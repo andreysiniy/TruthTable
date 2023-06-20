@@ -193,4 +193,50 @@ NodeType stringToNodeType(QString input)
     else return NodeType::VAR;
 }
 
+QString getStringFromFile(QString path)
 
+{
+    QList<error> errorList;
+
+    if (path.isEmpty())
+    {
+        // Путь к файлу пустой
+        error pathError;
+        pathError.type = PATH_NOT_FOUND;
+        errorList.append(pathError);
+        throw errorList;
+    }
+
+    QFile file(path);
+    if (!file.exists())
+    {
+        // Файл по пути не найден
+        error fileError;
+        fileError.type = FILE_NOT_FOUND;
+        errorList.append(fileError);
+        throw errorList;
+    }
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        // Нет доступа к файлу
+        error fileError;
+        fileError.type = FILE_ACCESS_DENIED;
+        errorList.append(fileError);
+        throw errorList;
+    }
+
+    QTextStream in(&file);
+    QString line = in.readLine();
+
+    if (!line.isNull() && !in.atEnd())
+    {
+        // В файле содержится больше одной строки
+        error multipleStringsError;
+        multipleStringsError.type = MORE_THAN_ONE_STRING;
+        errorList.append(multipleStringsError);
+        throw errorList;
+    }
+
+    return line;
+}
